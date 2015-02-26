@@ -1,8 +1,8 @@
 class Application {
     constructor(title, baseApiUrl) {
-        this.title = title;
+        this._title = title;
         this.baseApiUrl = baseApiUrl;
-        this.layout = false;
+        this._layout = false;
 
         this._entities = [];
     }
@@ -16,10 +16,11 @@ class Application {
     }
 
     getRouteFor(view, entityId) {
+
         var entity = view.entity;
         var baseApiUrl = entity.baseApiUrl || this.baseApiUrl;
 
-        var url = this.baseApiUrl + entity.name + (entityId ? '/' + entityId : '');
+        var url = this.baseApiUrl + entity.name() + (entityId ? '/' + entityId : '');
 
         // Add baseUrl for relative URL
         if (!/^(?:[a-z]+:)?\/\//.test(url)) {
@@ -28,6 +29,27 @@ class Application {
 
         return url;
     }
+
+    layout() {
+        if (arguments.length) {
+            this._layout = arguments[0];
+            return this;
+        }
+
+        return this._layout;
+    }
+
+    title() {
+        if (arguments.length) {
+            this._title= arguments[0];
+            return this;
+        }
+
+        return this._title;
+    }
 }
+
+window.ngadmin = window.ngadmin || {};
+window.ngadmin.Application = Application;
 
 export default Application;

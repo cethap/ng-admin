@@ -5,28 +5,59 @@ class Field {
         this._name = name;
         this._detailLink = null;
         this._type = "string";
+        this._order = 0;
+        this._label = null;
 
         this.identifier = false;
         this.validation = {};
     }
 
-    get name() {
-        return this._name;
+    label() {
+        if (arguments.length) {
+            this._label = arguments[0];
+            return this;
+        }
+
+        if (this._label === null) {
+            console.log(stringUtils.camelCase(this._name));
+            return stringUtils.camelCase(this._name);
+        }
+
+        return this._label;
     }
 
-    get label() {
-        return this._label || stringUtils.camelCase(this.name);
-    }
+    /** @deprecated */
+    type() {
+        if (arguments.length) {
+            this._type = arguments[0];
+            return this;
+        }
 
-    set label(_label) {
-        this._label = _label;
-    }
-
-    get type() {
         return this._type;
     }
 
-    get detailLink() {
+    /** @deprecated */
+    name() {
+        if (arguments.length) {
+            this._name = arguments[0];
+            return this;
+        }
+
+        return this._name;
+    }
+
+
+    /** @deprecated */
+    order() {
+        if (arguments.length) {
+            this._order = arguments[0];
+            return this;
+        }
+
+        return this._order;
+    }
+
+    isDetailLink() {
         if (this._detailLink === null) {
             return this._name === 'id';
         }
@@ -38,5 +69,8 @@ class Field {
         return this._detailLink = isDetailLink;
     }
 }
+
+window.ngadmin = window.ngadmin || {};
+window.ngadmin.Field = Field;
 
 export default Field;

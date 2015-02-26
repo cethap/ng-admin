@@ -1,12 +1,8 @@
 class Entry {
     constructor(entityName, values, identifierValue) {
         this._entityName = entityName;
-        this._values = values;
+        this.values = values;
         this._identifierValue = identifierValue;
-    }
-
-    get values() {
-        return this._values;
     }
 
     get entityName() {
@@ -30,18 +26,21 @@ class Entry {
         for (let i = 0, c = fields.length ; i < c ; i++) {
             let field = fields[i];
 
-            if (!(field.name in restEntry)) {
+            if (!(field.name() in restEntry)) {
                 continue;
             }
 
-            values[field.name] = restEntry[field.name];
-            if (identifierFieldName === field.name) {
-                identifier = restEntry[field.name];
+            values[field.name()] = restEntry[field.name()];
+            if (identifierFieldName === field.name()) {
+                identifier = restEntry[field.name()];
             }
         }
 
-        return new Entry(entity.name, values, identifier);
+        return new Entry(entity.name(), values, identifier);
     }
 }
+
+window.ngadmin = window.ngadmin || {};
+window.ngadmin.Entry = Entry;
 
 export default Entry;

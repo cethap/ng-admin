@@ -7,4 +7,7 @@ class ReferenceManyField extends Field {
     }
 }
 
+window.ngadmin = window.ngadmin || {};
+window.ngadmin.ReferenceManyField = ReferenceManyField;
+
 export default ReferenceManyField;

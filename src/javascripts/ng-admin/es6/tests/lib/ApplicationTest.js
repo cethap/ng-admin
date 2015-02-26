@@ -32,5 +32,14 @@ describe('Application', function() {
 
     describe('getRouteFor', function() {
         // @TODO
-    })
+    });
+
+    describe.only('layout', function() {
+        it('using function without argument should be as getter', function() {
+            var application = new Application();
+            application.layout = "New layout";
+
+            assert.equal("New layout", application.layout());
+        })
+    });
 });

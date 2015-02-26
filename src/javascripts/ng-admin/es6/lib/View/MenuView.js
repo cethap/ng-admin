@@ -7,16 +7,20 @@ class MenuView extends View {
         this._icon = null;
     }
 
-    get icon() {
+    /**
+     * @deprecated
+     */
+    icon() {
+        if (arguments.length) {
+            this._icon = arguments[0];
+            return this;
+        }
+
         if (this._icon === null) {
             return '<span class="glyphicon glyphicon-list"></span>';
         }
 
-        return this._icon;
-    }
-
-    set icon(icon) {
-        this._icon = icon;
+        return this.__icon;
     }
 }
 

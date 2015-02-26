@@ -6,7 +6,7 @@ import ListView from '../View/ListView';
 
 class Entity {
     constructor(name) {
-        this.name = name;
+        this._name = name;
         this.baseApiUrl = null;
         this._label = null;
 
@@ -17,16 +17,65 @@ class Entity {
         return this._views;
     }
 
-    get label() {
+    /** @deprecated */
+    label() {
+        if (arguments.length) {
+            this._label = arguments[0];
+            return this;
+        }
+
         if (this._label === null) {
-            return stringUtils.camelCase(this.name);
+            return stringUtils.camelCase(this._name);
         }
 
         return this._label;
     }
 
-    set label(label) {
-        this._label = label;
+    /**
+     * @deprecated
+     */
+    name() {
+        if (arguments.length) {
+            this._name = arguments[0];
+            return this;
+        }
+
+        return this._name;
+    }
+
+    /**
+     * @deprecated Use .views["MenuView"] instead
+     */
+    menuView() {
+        return this._views["MenuView"];
+    }
+
+    /**
+     * @deprecated Use .views["DashboardView"] instead
+     */
+    dashboardView() {
+        return this._views["DashboardView"];
+    }
+
+    /**
+     * @deprecated Use .views["ListView"] instead
+     */
+    listView() {
+        return this._views["ListView"];
+    }
+
+    /**
+     * @deprecated Use .views["CreationView"] instead
+     */
+    creationView() {
+        return this._views["CreationView"];
+    }
+
+    /**
+     * @deprecated Use .views["EditionView"] instead
+     */
+    editionView() {
+        return this._views["EditionView"];
     }
 
     _initViews() {
@@ -37,5 +86,8 @@ class Entity {
         };
     }
 }
+
+window.ngadmin = window.ngadmin || {};
+window.ngadmin.Entity = Entity;
 
 export default Entity;

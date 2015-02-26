@@ -13,4 +13,7 @@ class ReferenceField extends Field {
     }
 }
 
+window.ngadmin = window.ngadmin || {};
+window.ngadmin.ReferenceField = ReferenceField;
+
 export default ReferenceField;
