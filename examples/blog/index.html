@@ -8,10 +8,53 @@
         <script src="build/angular.js" type="text/javascript"></script>
         <script src="build/ng-admin.js" type="text/javascript"></script>
         <script src="build/require.js" type="text/javascript"></script>
-        <script src="build/ng-admin-configuration.js"></script>
-        <script src="config.js"></script>
+        <script>
+            require(['build/config/Application.js'], function(Application) {
+                var admin = new Application("Hello world!");
+                admin.baseApiUrl = 'http://localhost:3000/';
+
+                var post = admin.entity('posts');
+                post.dashboardView().fields([
+                    admin.field('title')
+                ]);
+                admin.addEntity(post);
+
+                var app = angular.module('myApp', ['ng-admin']);
+
+                app.config(function(NgAdminConfigurationProvider) {
+                    NgAdminConfigurationProvider.configure(admin);
+                });
+
+                app.config(function(RestangularProvider) {
+                    RestangularProvider.addFullRequestInterceptor(function(element, operation, what, url, headers, params) {
+                        if (operation == "getList") {
+                            // custom pagination params
+                            params._start = (params._page - 1) * params._perPage;
+                            params._end = params._page * params._perPage;
+                            delete params._page;
+                            delete params._perPage;
+                            // custom sort params
+                            if (params._sortField) {
+                                params._sort = params._sortField;
+                                delete params._sortField;
+                            }
+                            // custom filters
+                            if (params._filters) {
+                                for (var filter in params._filters) {
+                                    params[filter] = params._filters[filter];
+                                }
+                                delete params._filters;
+                            }
+                        }
+                        return { params: params };
+                    });
+                });
+
+                angular.bootstrap(document, ['myApp']);
+            });
+        </script>
     </head>
-    <body ng-app="myApp">
+    <body>
         <div ui-view></div>
     </body>
 </html>

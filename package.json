@@ -11,6 +11,7 @@
     "requirejs": "~2.1.14"
   },
   "devDependencies": {
+    "babel": "^4.6.0",
     "chai": "^2.1.0",
     "grunt": "~0.4.4",
     "grunt-concurrent": "^0.5.0",

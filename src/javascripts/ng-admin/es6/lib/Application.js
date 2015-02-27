@@ -62,13 +62,8 @@ class Application {
 
     /** @deprecated use entities collection directly */
     addEntity(entity) {
-        this._entities.push(post);
+        this._entities.push(entity);
     }
-}
-
-if (typeof(window) !== "undefined") {
-    window.ngadmin = window.ngadmin || {};
-    window.ngadmin.Application = Application;
 }
 
 export default Application;
