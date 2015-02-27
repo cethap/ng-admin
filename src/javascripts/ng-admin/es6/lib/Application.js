@@ -1,9 +1,13 @@
+import Factory from "./Factory";
+
 class Application {
     constructor(title, baseApiUrl) {
-        this._title = title;
         this.baseApiUrl = baseApiUrl;
-        this._layout = false;
 
+        this._factory = new Factory();
+
+        this._title = title;
+        this._layout = false;
         this._entities = [];
     }
 
@@ -47,9 +51,24 @@ class Application {
 
         return this._title;
     }
+
+    entity(name) {
+        return this._factory.entity(name);
+    }
+
+    field(name, type) {
+        return this._factory.field(name, type);
+    }
+
+    /** @deprecated use entities collection directly */
+    addEntity(entity) {
+        this._entities.push(post);
+    }
 }
 
-window.ngadmin = window.ngadmin || {};
-window.ngadmin.Application = Application;
+if (typeof(window) !== "undefined") {
+    window.ngadmin = window.ngadmin || {};
+    window.ngadmin.Application = Application;
+}
 
 export default Application;

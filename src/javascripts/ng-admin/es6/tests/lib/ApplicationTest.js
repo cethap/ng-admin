@@ -34,7 +34,7 @@ describe('Application', function() {
         // @TODO
     });
 
-    describe.only('layout', function() {
+    describe('layout', function() {
         it('using function without argument should be as getter', function() {
             var application = new Application();
             application.layout = "New layout";

@@ -40,7 +40,9 @@ class Entry {
     }
 }
 
-window.ngadmin = window.ngadmin || {};
-window.ngadmin.Entry = Entry;
+if (typeof(window) !== 'undefined') {
+    window.ngadmin = window.ngadmin || {};
+    window.ngadmin.Entry = Entry;
+}
 
 export default Entry;

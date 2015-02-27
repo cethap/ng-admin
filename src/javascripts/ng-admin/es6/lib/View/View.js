@@ -58,12 +58,13 @@ class View {
     }
 
     fields() {
+        if (arguments.length) {
+            this._fields = arguments[0];
+            return this;
+        }
+
         return this._fields;
     }
-
-    //get fields() {
-    //    return this._fields;
-    //}
 
     get type() {
         return this._type;

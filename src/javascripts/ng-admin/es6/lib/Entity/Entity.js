@@ -87,7 +87,9 @@ class Entity {
     }
 }
 
-window.ngadmin = window.ngadmin || {};
-window.ngadmin.Entity = Entity;
+if (typeof(window) !== 'undefined') {
+    window.ngadmin = window.ngadmin || {};
+    window.ngadmin.Entity = Entity;
+}
 
 export default Entity;

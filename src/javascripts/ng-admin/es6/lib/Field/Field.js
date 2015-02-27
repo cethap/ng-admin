@@ -19,7 +19,6 @@ class Field {
         }
 
         if (this._label === null) {
-            console.log(stringUtils.camelCase(this._name));
             return stringUtils.camelCase(this._name);
         }
 
@@ -58,6 +57,11 @@ class Field {
     }
 
     isDetailLink() {
+        if (arguments.length) {
+            this._detailLink = arguments[0];
+            return this;
+        }
+
         if (this._detailLink === null) {
             return this._name === 'id';
         }
@@ -70,7 +74,9 @@ class Field {
     }
 }
 
-window.ngadmin = window.ngadmin || {};
-window.ngadmin.Field = Field;
+if (typeof(window) !== 'undefined') {
+    window.ngadmin = window.ngadmin || {};
+    window.ngadmin.Field = Field;
+}
 
 export default Field;
